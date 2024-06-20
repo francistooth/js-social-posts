@@ -110,9 +110,8 @@ posts.forEach((element) => {
     let timeDiff = monthDiff(new Date(element.created), today); 
 
     dataTime.innerHTML = `${timeDiff} mesi fa`;
-    // appends
 
-    // header
+    // appends
 
     metaIcon.appendChild(metaImg);
     
@@ -129,7 +128,29 @@ posts.forEach((element) => {
 
     // text
 
-    // post.appendChild(postText);
+    const postText = document.createElement('div');
+    postHeader.classList.add("post__text");
+
+    postText.innerHTML = element.content;
+
+    // appends
+
+    post.appendChild(postText);
+
+    // post image
+
+    const postImgDiv = document.createElement('div');
+    postHeader.classList.add("post__image");
+
+    const postMedia = document.createElement('img');
+
+    postMedia.src = element.media;
+
+    // appends
+
+    postImgDiv.appendChild(postMedia);
+
+    post.appendChild(postImgDiv);
 
     // footer
 
