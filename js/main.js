@@ -60,103 +60,42 @@ const postContainer = document.getElementById("container");
 
 var today = new Date();
 
-// creo gli elementi in pagina dinamicamente utilizzando l'array
-
 posts.forEach((element) => {
-    // main div
+    let timeDiff = monthDiff(new Date(element.created), today);
 
-    const post = document.createElement("div");
-    post.classList.add("post");
+    const postContent = `
+    <div class="post">
+        <div class="post__header">
+            <div class="post-meta">                    
+                <div class="post-meta__icon">
+                    <img class="profile-pic" src="${element.author.image}" alt="${element.author.name}">                    
+                </div>
+                <div class="post-meta__data">
+                    <div class="post-meta__author">${element.author.name}</div>
+                    <div class="post-meta__time">${timeDiff} mesi fa</div>
+                </div>                    
+            </div>
+        </div>
+        <div class="post__text">${element.content}</div>
+        <div class="post__image">
+        <img src="${element.media}" alt="">
+        </div>
+        <div class="post__footer">
+            <div class="likes js-likes">
+                <div class="likes__cta">
+                    <a class="like-button  js-like-button" href="#" data-postid="1">
+                        <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
+                        <span class="like-button__label">Mi Piace</span>
+                    </a>
+                </div>
+                <div class="likes__counter">
+                    Piace a <b id="like-counter-1" class="js-likes-counter">${element.likes}</b> persone
+                </div>
+            </div> 
+        </div>            
+    </div>`;
 
-    // header
-
-    const postHeader = document.createElement('div');
-    postHeader.classList.add("post__header");
-
-    // post meta
-
-    const postMeta = document.createElement('div');
-    postMeta.classList.add("post-meta");
-
-    // meta icon
-
-    const metaIcon = document.createElement('div');
-    metaIcon.classList.add("post-meta__icon");
-
-    // meta img
-
-    const metaImg = document.createElement('img');
-    metaImg.classList.add("profile-pic");
-
-    metaImg.src = element.author.image;
-    metaImg.alt = element.author.name;
-
-    // meta data
-
-    const metaData = document.createElement('div');
-    metaImg.classList.add("post-meta__data");
-
-    // data author
-
-    const dataAuthor = document.createElement('div');
-    dataAuthor.classList.add("post-meta__author");
-    dataAuthor.innerHTML = element.author.name;
-
-    // data time
-
-    const dataTime = document.createElement('div');
-    dataTime.classList.add("post-meta__time");
-
-    let timeDiff = monthDiff(new Date(element.created), today); 
-
-    dataTime.innerHTML = `${timeDiff} mesi fa`;
-
-    // appends
-
-    metaIcon.appendChild(metaImg);
-    
-    postMeta.appendChild(metaIcon);
-
-    metaData.appendChild(dataAuthor);
-    metaData.appendChild(dataTime);
-
-    postMeta.appendChild(metaData);
-
-    postHeader.appendChild(postMeta);
-
-    post.appendChild(postHeader);
-
-    // text
-
-    const postText = document.createElement('div');
-    postHeader.classList.add("post__text");
-
-    postText.innerHTML = element.content;
-
-    // appends
-
-    post.appendChild(postText);
-
-    // post image
-
-    const postImgDiv = document.createElement('div');
-    postHeader.classList.add("post__image");
-
-    const postMedia = document.createElement('img');
-
-    postMedia.src = element.media;
-
-    // appends
-
-    postImgDiv.appendChild(postMedia);
-
-    post.appendChild(postImgDiv);
-
-    // footer
-
-    // post.appendChild(postFooter);
-    
-    postContainer.appendChild(post);
+    postContainer.innerHTML += postContent;
 });
 
 function monthDiff(dateFrom, dateTo) {
