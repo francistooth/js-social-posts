@@ -101,4 +101,29 @@ posts.forEach((element) => {
 function monthDiff(dateFrom, dateTo) {
     return dateTo.getMonth() - dateFrom.getMonth() + 
       (12 * (dateTo.getFullYear() - dateFrom.getFullYear()))
-   }
+}
+
+// creo un vettore di bottoni likes
+
+const likedPosts = [];
+
+let btnLikes = document.querySelectorAll('.like-button');
+let counters = document.querySelectorAll('.js-likes-counter');
+
+for (let i = 0; i < btnLikes.length; i++) {
+    let liked = btnLikes[i];
+
+    liked.addEventListener("click", function(event) {
+        event.preventDefault();
+        liked.classList.add("like-button_liked");
+
+        let counterLiked = counters[i];
+
+        let likeValue = parseInt(counterLiked.innerHTML);
+        likeValue++;
+
+        // insert
+
+        counterLiked.innerHTML = likeValue;
+    });
+}
